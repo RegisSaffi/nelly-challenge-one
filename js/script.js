@@ -1,11 +1,30 @@
+
+function setLoading(msg){
+    var ul = document. getElementById("list");
+    var loader = document. createElement("li");
+    loader.setAttribute('id','loader')
+    loader.innerHTML=msg
+    ul.appendChild(loader)
+}
+
+function removeLoading(){
+    var loader = document.getElementById("loader");
+    if(loader!=null){
+    loader.remove()
+    }
+}
+
 function getUsers() {
     var ul = document. getElementById("list");
 
+    setLoading("Getting users, please wait...")
     fetch('https://jsonplaceholder.typicode.com/users').then(function (response) {
 	// The API call was successful!
 	return response.json();
 }).then(function (data) {
 	// This is the JSON from response
+
+    removeLoading()
 
     data.forEach(element => {
       
@@ -53,6 +72,8 @@ function getUsers() {
     
 }).catch(function (err) {
 	// There was an error
+    removeLoading()
+    setLoading("Failed loading users, try refreshing your page.")
 	console.warn('Something went wrong while loading users.', err);
 });
 
@@ -67,6 +88,8 @@ const id= urlParams.get('id');
 
 var ul = document. getElementById("list");
 
+setLoading("Getting user posts...")
+
 fetch('https://jsonplaceholder.typicode.com/users/'+id+'/posts').then(function (response) {
 // The API call was successful!
 return response.json();
@@ -75,6 +98,7 @@ return response.json();
 
 data.forEach(element => {
   
+    removeLoading()
     //Creating individual list item
 
     var li = document.createElement("li");
@@ -99,6 +123,8 @@ data.forEach(element => {
 });
 
 }).catch(function (err) {
+    removeLoading()
+    setLoading("Failed to get user's posts, try refreshing your page")
 // There was an error
 console.warn('Something went wrong while loading users.', err);
 });

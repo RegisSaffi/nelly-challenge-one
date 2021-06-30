@@ -38,6 +38,13 @@ button:hover{
     cursor:pointer;
 }
 
+#loader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+}
+
 .list-item:last-child {
     border-bottom: none;
 }
